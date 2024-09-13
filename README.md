@@ -1,10 +1,8 @@
 # gitp
 
-for setup -
+A cli to switch between your git profiles. it's literally just a fs copy 🦀.
 
-- download the binary from release.
-- locate to the file and run
 
-```bash
-sudo mv gitp /usr/local/bin/
-```
+#### setup 
+
+For setup you can simply build it on your own system or if you linux just download the binary from the release and then locate to the file and run `sudo mv gitp /usr/local/bin/`.
