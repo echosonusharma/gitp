@@ -73,7 +73,6 @@ fn read_file(path: &str) -> Result<Profile, AppErr> {
 
                 match line {
                     Ok(l) => {
-                        println!("{}", l);
                         if l.contains("name") {
                             let (_, v) = l.split_once("=").unwrap_or(("", ""));
                             name = Some(v.trim().to_string())
