@@ -52,10 +52,15 @@ impl Profile {
 
     fn detail(&self) -> String {
         format!(
-            "\x1b[33musing {} with name {} & email {}\x1b[0m",
+            "\x1b[33musing {} with name {} & email {}.\x1b[0m",
             GIT_CONF, self.name, self.email
         )
     }
+}
+
+fn find_and_assign(x: &mut Option<String>, l: &String) {
+    let (_, v) = l.split_once("=").unwrap_or(("", ""));
+    *x = Some(v.trim().to_string())
 }
 
 fn read_file(path: &str) -> Result<Profile, AppErr> {
@@ -74,12 +79,9 @@ fn read_file(path: &str) -> Result<Profile, AppErr> {
                 match line {
                     Ok(l) => {
                         if l.contains("name") {
-                            let (_, v) = l.split_once("=").unwrap_or(("", ""));
-                            name = Some(v.trim().to_string())
-                        }
-                        if l.contains("email") {
-                            let (_, v) = l.split_once("=").unwrap_or(("", ""));
-                            email = Some(v.trim().to_string())
+                            find_and_assign(&mut name, &l);
+                        } else if l.contains("email") {
+                            find_and_assign(&mut email, &l);
                         }
                     }
                     Err(e) => return Err(AppErr::FileLineReadErr(e)),
